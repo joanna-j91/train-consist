@@ -21,39 +21,32 @@ public class TrainConsistMgmntTest {
         bogies.add(new TrainConsistMgmnt.Bogie("First Class", 24));
         bogies.add(new TrainConsistMgmnt.Bogie("General",     90));
     }
-    @Test
-    void testBinarySearch_BogieFound() {
-        assertTrue(TrainConsistMgmnt.binarySearch(BOGIE_IDS, "BG309"));
+
+    void testSearch_ThrowsExceptionWhenEmpty() {
+        assertThrows(IllegalStateException.class,
+                () -> TrainConsistMgmnt.searchWithValidation(new String[]{}, "BG101"));
     }
 
     @Test
-    void testBinarySearch_BogieNotFound() {
-        assertFalse(TrainConsistMgmnt.binarySearch(BOGIE_IDS, "BG999"));
+    void testSearch_AllowsSearchWhenDataExists() {
+        assertDoesNotThrow(() ->
+                TrainConsistMgmnt.searchWithValidation(new String[]{"BG101", "BG205"}, "BG101"));
     }
 
     @Test
-    void testBinarySearch_FirstElementMatch() {
-        assertTrue(TrainConsistMgmnt.binarySearch(BOGIE_IDS, "BG101"));
+    void testSearch_BogieFoundAfterValidation() {
+        assertTrue(TrainConsistMgmnt.searchWithValidation(
+                new String[]{"BG101", "BG205", "BG309"}, "BG205"));
     }
 
     @Test
-    void testBinarySearch_LastElementMatch() {
-        assertTrue(TrainConsistMgmnt.binarySearch(BOGIE_IDS, "BG550"));
+    void testSearch_BogieNotFoundAfterValidation() {
+        assertFalse(TrainConsistMgmnt.searchWithValidation(
+                new String[]{"BG101", "BG205", "BG309"}, "BG999"));
     }
 
     @Test
-    void testBinarySearch_SingleElementArray() {
-        assertTrue(TrainConsistMgmnt.binarySearch(new String[]{"BG101"}, "BG101"));
-    }
-
-    @Test
-    void testBinarySearch_EmptyArray() {
-        assertFalse(TrainConsistMgmnt.binarySearch(new String[]{}, "BG101"));
-    }
-
-    @Test
-    void testBinarySearch_UnsortedInputHandled() {
-        assertTrue(TrainConsistMgmnt.binarySearch(
-                new String[]{"BG309", "BG101", "BG550", "BG205", "BG412"}, "BG205"));
+    void testSearch_SingleElementValidCase() {
+        assertTrue(TrainConsistMgmnt.searchWithValidation(new String[]{"BG101"}, "BG101"));
     }
 }

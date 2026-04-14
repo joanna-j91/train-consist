@@ -22,32 +22,32 @@ public class TrainConsistMgmntTest {
     }
 
     @Test
-    void testSort_BasicSorting() {
-        int[] result = TrainConsistMgmnt.bubbleSort(new int[]{72, 56, 24, 70, 60});
-        assertArrayEquals(new int[]{24, 56, 60, 70, 72}, result);
+    void testSort_BasicAlphabeticalSorting() {
+        String[] result = TrainConsistMgmnt.sortBogieNames(new String[]{"Sleeper", "AC Chair", "First Class", "General", "Luxury"});
+        assertArrayEquals(new String[]{"AC Chair", "First Class", "General", "Luxury", "Sleeper"}, result);
+    }
+
+    @Test
+    void testSort_UnsortedInput() {
+        String[] result = TrainConsistMgmnt.sortBogieNames(new String[]{"Luxury", "General", "Sleeper", "AC Chair"});
+        assertArrayEquals(new String[]{"AC Chair", "General", "Luxury", "Sleeper"}, result);
     }
 
     @Test
     void testSort_AlreadySortedArray() {
-        int[] result = TrainConsistMgmnt.bubbleSort(new int[]{24, 56, 60, 70, 72});
-        assertArrayEquals(new int[]{24, 56, 60, 70, 72}, result);
+        String[] result = TrainConsistMgmnt.sortBogieNames(new String[]{"AC Chair", "First Class", "General"});
+        assertArrayEquals(new String[]{"AC Chair", "First Class", "General"}, result);
     }
 
     @Test
-    void testSort_DuplicateValues() {
-        int[] result = TrainConsistMgmnt.bubbleSort(new int[]{72, 56, 56, 24});
-        assertArrayEquals(new int[]{24, 56, 56, 72}, result);
+    void testSort_DuplicateBogieNames() {
+        String[] result = TrainConsistMgmnt.sortBogieNames(new String[]{"Sleeper", "AC Chair", "Sleeper", "General"});
+        assertArrayEquals(new String[]{"AC Chair", "General", "Sleeper", "Sleeper"}, result);
     }
 
     @Test
     void testSort_SingleElementArray() {
-        int[] result = TrainConsistMgmnt.bubbleSort(new int[]{50});
-        assertArrayEquals(new int[]{50}, result);
-    }
-
-    @Test
-    void testSort_AllEqualValues() {
-        int[] result = TrainConsistMgmnt.bubbleSort(new int[]{40, 40, 40});
-        assertArrayEquals(new int[]{40, 40, 40}, result);
+        String[] result = TrainConsistMgmnt.sortBogieNames(new String[]{"Sleeper"});
+        assertArrayEquals(new String[]{"Sleeper"}, result);
     }
 }

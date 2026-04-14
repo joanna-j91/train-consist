@@ -36,32 +36,24 @@ public class TrainConsistMgmnt {
         Bogie(String name, int capacity) { this.name = name; this.capacity = capacity; }
     }
 
-    static class InvalidCapacityException extends Exception {
-        public InvalidCapacityException(String message) { super(message); }
-    }
-
-    static class CargoSafetyException extends RuntimeException {
-        public CargoSafetyException(String message) { super(message); }
-    }
-
-    // uc 17
-    public static String[] sortBogieNames(String[] names) {
-        String[] copy = Arrays.copyOf(names, names.length);
-        Arrays.sort(copy);
-        return copy;
+    public static boolean linearSearch(String[] bogieIds, String searchId) {
+        for (String id : bogieIds) {
+            if (id.equals(searchId)) return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
         System.out.println("\n===============================================");
-        System.out.println(" UC17 - Sort Bogie Names Using Arrays.sort() ");
+        System.out.println(" UC18 - Linear Search for Bogie ID ");
         System.out.println("===============================================\n");
-        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
-        System.out.println("Original Bogie Names:");
-        System.out.println(Arrays.toString(bogieNames));
-        String[] sortedNames = sortBogieNames(bogieNames);
-        System.out.println("\nSorted Bogie Names (Alphabetical):");
-        System.out.println(Arrays.toString(sortedNames));
-        System.out.println("\nUC17 sorting completed...");
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        String searchId = "BG309";
+        System.out.println("Available Bogie IDs:");
+        for (String id : bogieIds) System.out.println(id);
+        boolean found = linearSearch(bogieIds, searchId);
+        System.out.println(found ? "\nBogie " + searchId + " found in train consist." : "\nBogie " + searchId + " not found.");
+        System.out.println("\nUC18 search completed...");
 
         Scanner scanner = new Scanner(System.in);
         scanner.close();

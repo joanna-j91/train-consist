@@ -21,29 +21,39 @@ public class TrainConsistMgmntTest {
         bogies.add(new TrainConsistMgmnt.Bogie("First Class", 24));
         bogies.add(new TrainConsistMgmnt.Bogie("General",     90));
     }
-
     @Test
-    void testSearch_BogieFound() {
-        assertTrue(TrainConsistMgmnt.linearSearch(BOGIE_IDS, "BG309"));
+    void testBinarySearch_BogieFound() {
+        assertTrue(TrainConsistMgmnt.binarySearch(BOGIE_IDS, "BG309"));
     }
 
     @Test
-    void testSearch_BogieNotFound() {
-        assertFalse(TrainConsistMgmnt.linearSearch(BOGIE_IDS, "BG999"));
+    void testBinarySearch_BogieNotFound() {
+        assertFalse(TrainConsistMgmnt.binarySearch(BOGIE_IDS, "BG999"));
     }
 
     @Test
-    void testSearch_FirstElementMatch() {
-        assertTrue(TrainConsistMgmnt.linearSearch(BOGIE_IDS, "BG101"));
+    void testBinarySearch_FirstElementMatch() {
+        assertTrue(TrainConsistMgmnt.binarySearch(BOGIE_IDS, "BG101"));
     }
 
     @Test
-    void testSearch_LastElementMatch() {
-        assertTrue(TrainConsistMgmnt.linearSearch(BOGIE_IDS, "BG550"));
+    void testBinarySearch_LastElementMatch() {
+        assertTrue(TrainConsistMgmnt.binarySearch(BOGIE_IDS, "BG550"));
     }
 
     @Test
-    void testSearch_SingleElementArray() {
-        assertTrue(TrainConsistMgmnt.linearSearch(new String[]{"BG101"}, "BG101"));
+    void testBinarySearch_SingleElementArray() {
+        assertTrue(TrainConsistMgmnt.binarySearch(new String[]{"BG101"}, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_EmptyArray() {
+        assertFalse(TrainConsistMgmnt.binarySearch(new String[]{}, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_UnsortedInputHandled() {
+        assertTrue(TrainConsistMgmnt.binarySearch(
+                new String[]{"BG309", "BG101", "BG550", "BG205", "BG412"}, "BG205"));
     }
 }
